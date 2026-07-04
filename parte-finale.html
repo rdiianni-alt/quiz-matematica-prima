@@ -1,0 +1,28 @@
+<!-- ===== PARTE FINALE — incolla questo blocco in fondo alla pagina del blog ===== -->
+<div style="text-align:center;margin-top:26px;">
+  <img src="https://raw.githubusercontent.com/rdiianni-alt/matematichenonsinasce/055f4e9caf74c856ae2f59926ae544fc0e493e33/logoconkalimba.png" alt="" style="display:block;margin:0 auto 14px;width:130px;height:auto;">
+  <div style="font-size:13px;color:#8a8578;line-height:1.7;">
+    © <span id="year"></span> Rita Di Ianni · matematichenonsinasce · idee e materiali per la scuola primaria
+    <div id="visite" style="display:none;margin-top:6px;font-size:12.5px;color:#A89E8E;">👀 <b id="visiteN" style="color:#C81D25;font-weight:600;">—</b> <span id="visiteLbl">visite</span></div>
+  </div>
+</div>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Contatore visite (stesso contatore usato su matematichenonsinasce.github.io/matematichenonsinasce).
+  // Se non risponde, la riga resta nascosta: nessun errore in pagina.
+  (function visite(){
+    fetch("https://api.counterapi.dev/v1/matematichenonsinasce/giochi/up")
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(d => {
+        const n = (d && (d.count ?? d.value));
+        if(typeof n === "number"){
+          document.getElementById("visiteN").textContent = n.toLocaleString("it-IT");
+          document.getElementById("visiteLbl").textContent = (n === 1) ? "visita" : "visite";
+          document.getElementById("visite").style.display = "block";
+        }
+      })
+      .catch(() => {});
+  })();
+</script>
+<!-- ===== fine parte finale ===== -->
